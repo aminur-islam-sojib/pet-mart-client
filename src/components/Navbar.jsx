@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // for hamburger icons
-import { AuthContext } from "../Context/AuthContext";
+import { Menu, X } from "lucide-react";
 import useAuth from "../Hooks/useAuth";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +54,7 @@ const Navbar = () => {
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2">
           <img
-            src="/paw-logo.png"
+            src={logo}
             alt="PawMart Logo"
             className="w-8 h-8 object-contain"
           />
