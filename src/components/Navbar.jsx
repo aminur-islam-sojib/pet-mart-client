@@ -17,34 +17,30 @@ const Navbar = () => {
       .catch((err) => console.error(err));
   };
 
-  const navLinksBeforeLogin = (
+  const links = (
     <>
-      <NavLink to="/" className="hover:text-primary">
-        Home
-      </NavLink>
-      <NavLink to="/pets-supplies" className="hover:text-primary">
-        Pets & Supplies
-      </NavLink>
-    </>
-  );
-
-  const navLinksAfterLogin = (
-    <>
-      <NavLink to="/" className="hover:text-primary">
-        Home
-      </NavLink>
-      <NavLink to="/pets-supplies" className="hover:text-primary">
-        Pets & Supplies
-      </NavLink>
-      <NavLink to="/add-listing" className="hover:text-primary">
-        Add Listing
-      </NavLink>
-      <NavLink to="/my-listings" className="hover:text-primary">
-        My Listings
-      </NavLink>
-      <NavLink to="/my-orders" className="hover:text-primary">
-        My Orders
-      </NavLink>
+      {user ? (
+        <>
+          <NavLink to="/add-listing" className="hover:text-rose-500">
+            Add Listing
+          </NavLink>
+          <NavLink to="/my-listings" className="hover:text-rose-500">
+            My Listings
+          </NavLink>
+          <NavLink to="/my-orders" className="hover:text-rose-500">
+            My Orders
+          </NavLink>
+        </>
+      ) : (
+        <>
+          <NavLink to="/" className="hover:text-rose-500">
+            Home
+          </NavLink>
+          <NavLink to="/pets-supplies" className="hover:text-rose-500">
+            Pets & Supplies
+          </NavLink>
+        </>
+      )}
     </>
   );
 
@@ -58,12 +54,12 @@ const Navbar = () => {
             alt="PawMart Logo"
             className="w-8 h-8 object-contain"
           />
-          <h1 className="text-xl font-bold text-[#f97316]">PawMart</h1>
+          <h1 className="text-xl font-bold text-rose-600">PawMart</h1>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
-          {user ? navLinksAfterLogin : navLinksBeforeLogin}
+          {links}
         </div>
 
         {/* Right Section */}
@@ -77,26 +73,17 @@ const Navbar = () => {
                   className="w-8 h-8 rounded-full border"
                   title={user.displayName || "Profile"}
                 />
-                <button
-                  onClick={handleLogout}
-                  className="bg-[#f97316] text-white px-3 py-1 rounded-md hover:bg-[#ea580c] transition"
-                >
+                <button onClick={handleLogout} className=" btn-classic">
                   Logout
                 </button>
               </div>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="bg-[#f97316] text-white px-3 py-1 rounded-md hover:bg-[#ea580c] transition"
-              >
+              <Link to="/login" className="btn-classic-outline">
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="border border-[#f97316] text-[#f97316] px-3 py-1 rounded-md hover:bg-[#f97316] hover:text-white transition"
-              >
+              <Link to="/register" className=" btn-classic">
                 Register
               </Link>
             </>
@@ -115,7 +102,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white border-t py-4 px-6 flex flex-col gap-4 text-gray-700 font-medium">
-          {user ? navLinksAfterLogin : navLinksBeforeLogin}
+          {links}
           {user ? (
             <>
               <div className="flex items-center gap-2">
@@ -126,25 +113,16 @@ const Navbar = () => {
                 />
                 <p className="text-sm">{user.displayName}</p>
               </div>
-              <button
-                onClick={handleLogout}
-                className="bg-[#f97316] text-white px-3 py-1 rounded-md hover:bg-[#ea580c]"
-              >
+              <button onClick={handleLogout} className=" btn-classic">
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="bg-[#f97316] text-white px-3 py-1 rounded-md text-center hover:bg-[#ea580c]"
-              >
+              <Link to="/login" className=" btn-classic-outline">
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="border border-[#f97316] text-[#f97316] px-3 py-1 rounded-md text-center hover:bg-[#f97316] hover:text-white"
-              >
+              <Link to="/register" className=" btn-classic">
                 Register
               </Link>
             </>
