@@ -4,20 +4,20 @@ import useAuth from "../Hooks/useAuth";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
-const RegisterForm = () => {
-  const { createUser, googleLogin, loading, token } = useAuth();
+const LoginForm = () => {
+  const { login, loading } = useAuth();
   const [showPass, setShowPass] = useState(false);
+  const { googleLogin } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    imageUrl: "",
   });
 
-  const instance = useAxios();
   const from = location?.state?.from.pathname || "/";
+  const instance = useAxios();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,18 +26,10 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userInfo = {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      imageUrl: formData.imageUrl,
-      created_at: new Date(),
-    };
-
+    // TODO: send to backend API
     try {
-      const res = await createUser(formData.email, formData.password);
+      const res = await login(formData.email, formData.password);
       console.log(res);
-      instance.post("/users", userInfo);
       navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
@@ -55,41 +47,22 @@ const RegisterForm = () => {
         created_at: new Date(),
         role: "student",
       };
+      console.log(userInfo);
       instance.post("/users", userInfo);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(token);
-
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden md:py-10">
       {/* 🧾 Registration Card */}
       <div className="relative z-10 w-full max-w-md mx-4 sm:mx-auto bg-rose-50  rounded-2xl shadow-xl p-6 sm:p-8">
         <h2 className="text-3xl font-bold text-center text-rose-600 mb-6">
-          Register
+          Log In
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
-          <div className="form-control flex flex-col gap-1 ">
-            <label className="label">
-              <span className="label-text font-semibold text-gray-500">
-                Name
-              </span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="input input-bordered w-full"
-              required
-            />
-          </div>
-
           {/* Email */}
           <div className="form-control flex flex-col gap-1 ">
             <label className="label">
@@ -130,27 +103,10 @@ const RegisterForm = () => {
             >
               {showPass ? <Eye /> : <EyeClosed />}
             </div>
-          </div>
-
-          {/* Image URL */}
-          <div className="form-control flex flex-col gap-1  ">
-            <label className="label">
-              <span className="label-text font-semibold text-gray-500">
-                Profile Image URL
-              </span>
-            </label>
-            <input
-              type="url"
-              name="imageUrl"
-              value={formData.imageUrl}
-              onChange={handleChange}
-              placeholder="https://example.com/image.jpg"
-              className="input input-bordered w-full"
-            />
             <div className=" text-gray-500 text-sm text-right">
-              Already have an account?{" "}
-              <Link to={"/login"} className=" text-blue-500">
-                Log In{" "}
+              Don't have an account?{" "}
+              <Link to={"/register"} className=" text-blue-500">
+                Register{" "}
               </Link>
             </div>
           </div>
@@ -160,7 +116,7 @@ const RegisterForm = () => {
             type="submit"
             className="btn-classic border-none w-full mt-4 bg-rose-500 hover:bg-rose-600 text-white"
           >
-            {loading ? "Registering..." : "Register"}
+            {loading ? "Login..." : "Log In"}
           </button>
         </form>
 
@@ -206,4 +162,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
