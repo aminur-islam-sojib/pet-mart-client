@@ -8,7 +8,6 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Navbar />
         <Home />
       </AuthProvider>
     </BrowserRouter>
