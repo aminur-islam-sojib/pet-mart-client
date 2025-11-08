@@ -1,9 +1,8 @@
-// RegisterForm.jsx
 import { useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import { Eye, EyeClosed } from "lucide-react";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const RegisterForm = () => {
   const { createUser, googleLogin, loading, token } = useAuth();
@@ -18,7 +17,6 @@ const RegisterForm = () => {
   });
 
   const instance = useAxios();
-
   const from = location?.state?.from.pathname || "/";
 
   const handleChange = (e) => {
@@ -28,7 +26,6 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: send to backend API
     const userInfo = {
       name: formData.name,
       email: formData.email,
@@ -58,7 +55,6 @@ const RegisterForm = () => {
         created_at: new Date(),
         role: "student",
       };
-      console.log(userInfo);
       instance.post("/users", userInfo);
     } catch (error) {
       console.log(error);
@@ -68,14 +64,20 @@ const RegisterForm = () => {
   console.log(token);
 
   return (
-    <div className=" flex items-center justify-center bg-base-200 py-3">
-      <div className="card w-full max-w-md shadow-xl bg-base-100 p-6">
-        <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden md:py-10">
+      {/* 🧾 Registration Card */}
+      <div className="relative z-10 w-full max-w-md mx-4 sm:mx-auto bg-rose-50  rounded-2xl shadow-xl p-6 sm:p-8">
+        <h2 className="text-3xl font-bold text-center text-rose-600 mb-6">
+          Register
+        </h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
-          <div className="form-control">
+          <div className="form-control flex flex-col gap-1 ">
             <label className="label">
-              <span className="label-text">Name</span>
+              <span className="label-text font-semibold text-gray-500">
+                Name
+              </span>
             </label>
             <input
               type="text"
@@ -89,9 +91,11 @@ const RegisterForm = () => {
           </div>
 
           {/* Email */}
-          <div className="form-control">
+          <div className="form-control flex flex-col gap-1 ">
             <label className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text font-semibold text-gray-500">
+                Email
+              </span>
             </label>
             <input
               type="email"
@@ -105,9 +109,11 @@ const RegisterForm = () => {
           </div>
 
           {/* Password */}
-          <div className="form-control relative">
+          <div className="form-control relative flex flex-col gap-1 ">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text font-semibold text-gray-500">
+                Password
+              </span>
             </label>
             <input
               type={showPass ? "text" : "password"}
@@ -118,19 +124,20 @@ const RegisterForm = () => {
               className="input input-bordered w-full"
               required
             />
-            <button
+            <div
               onClick={() => setShowPass(!showPass)}
-              className="absolute top-8 right-2 z-50 text-gray-500"
+              className="absolute top-8 right-3 text-gray-500"
             >
-              {" "}
               {showPass ? <Eye /> : <EyeClosed />}
-            </button>
+            </div>
           </div>
 
           {/* Image URL */}
-          <div className="form-control">
+          <div className="form-control flex flex-col gap-1  ">
             <label className="label">
-              <span className="label-text">Profile Image URL</span>
+              <span className="label-text font-semibold text-gray-500">
+                Profile Image URL
+              </span>
             </label>
             <input
               type="url"
@@ -140,14 +147,20 @@ const RegisterForm = () => {
               placeholder="https://example.com/image.jpg"
               className="input input-bordered w-full"
             />
+            <div className=" text-gray-500 text-sm text-right">
+              Already have an account?{" "}
+              <Link to={"/login"} className=" text-blue-500">
+                Log In{" "}
+              </Link>
+            </div>
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn btn-success text-white w-full mt-2"
+            className="btn-classic border-none w-full mt-4 bg-rose-500 hover:bg-rose-600 text-white"
           >
-            {loading ? "Register..." : "Register"}
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
@@ -157,12 +170,12 @@ const RegisterForm = () => {
         {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="btn bg-white text-black border-[#e5e5e5]"
+          className="btn btn-classic-outline bg-white text-black border border-gray-300 w-full hover:bg-gray-100"
         >
           <svg
             aria-label="Google logo"
-            width="16"
-            height="16"
+            width="18"
+            height="18"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
@@ -186,7 +199,7 @@ const RegisterForm = () => {
               ></path>
             </g>
           </svg>
-          Login with Google
+          <span className="ml-2">Login with Google</span>
         </button>
       </div>
     </div>

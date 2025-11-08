@@ -12,3 +12,7 @@
 .active {
   @apply text-rose-600;
 }
+
+input:focus {
+  outline: none;
+}

@@ -21,6 +21,12 @@ const Navbar = () => {
     <>
       {user ? (
         <>
+          <NavLink to="/" className="hover:text-rose-500">
+            Home
+          </NavLink>
+          <NavLink to="/pets-supplies" className="hover:text-rose-500">
+            Pets & Supplies
+          </NavLink>
           <NavLink to="/add-listing" className="hover:text-rose-500">
             Add Listing
           </NavLink>
