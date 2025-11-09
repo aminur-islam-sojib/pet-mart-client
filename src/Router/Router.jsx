@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import RegisterForm from "../Pages/Registration";
 import LoginForm from "../Pages/Login";
 import AddListing from "../Pages/AddListing";
+import PetsAndSupply from "../Pages/PetsAndSupply";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/add-listing",
         element: <AddListing />,
+      },
+      {
+        path: "/pets-supplies",
+        element: <PetsAndSupply />,
       },
     ],
   },
