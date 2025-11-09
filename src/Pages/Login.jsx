@@ -3,6 +3,7 @@ import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
+import { Bounce, toast } from "react-toastify";
 
 const LoginForm = () => {
   const { login, loading } = useAuth();
@@ -30,6 +31,17 @@ const LoginForm = () => {
     try {
       const res = await login(formData.email, formData.password);
       console.log(res);
+      toast.success("Log In Successful!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
@@ -47,8 +59,19 @@ const LoginForm = () => {
         created_at: new Date(),
         role: "student",
       };
-      console.log(userInfo);
       instance.post("/users", userInfo);
+      toast.success("Log In Successful!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
     }

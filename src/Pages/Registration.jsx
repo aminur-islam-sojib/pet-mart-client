@@ -1,12 +1,12 @@
 import { useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
-import { Eye, EyeClosed } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Check, Eye, EyeClosed, EyeOff, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 
 const RegisterForm = () => {
   const { createUser, googleLogin, loading, token } = useAuth();
-  const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -23,6 +23,15 @@ const RegisterForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Validation checks
+  const hasUppercase = /[A-Z]/.test(formData.password);
+  const hasLowercase = /[a-z]/.test(formData.password);
+  const hasMinLength = formData.password.length >= 6;
+
+  const isValid = hasUppercase && hasLowercase && hasMinLength;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,10 +44,35 @@ const RegisterForm = () => {
     };
 
     try {
-      const res = await createUser(formData.email, formData.password);
-      console.log(res);
-      instance.post("/users", userInfo);
-      navigate(from, { replace: true });
+      if (!isValid)
+        return toast.error("Please input a valid password!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      else {
+        const res = await createUser(formData.email, formData.password);
+        console.log(res);
+        instance.post("/users", userInfo);
+        toast.success("Registration Successful!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        navigate(from, { replace: true });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -56,6 +90,18 @@ const RegisterForm = () => {
         role: "student",
       };
       instance.post("/users", userInfo);
+      toast.success("Registration Successful!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -108,30 +154,6 @@ const RegisterForm = () => {
             />
           </div>
 
-          {/* Password */}
-          <div className="form-control relative flex flex-col gap-1 ">
-            <label className="label">
-              <span className="label-text font-semibold text-gray-500">
-                Password
-              </span>
-            </label>
-            <input
-              type={showPass ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              className="input input-bordered w-full"
-              required
-            />
-            <div
-              onClick={() => setShowPass(!showPass)}
-              className="absolute top-9 right-3 text-gray-500 z-50"
-            >
-              {showPass ? <Eye /> : <EyeClosed />}
-            </div>
-          </div>
-
           {/* Image URL */}
           <div className="form-control flex flex-col gap-1  ">
             <label className="label">
@@ -147,16 +169,86 @@ const RegisterForm = () => {
               placeholder="https://example.com/image.jpg"
               className="input input-bordered w-full"
             />
-            <div className=" text-gray-500 text-sm text-right">
-              Already have an account?{" "}
-              <Link to={"/login"} className=" text-blue-500">
-                Log In{" "}
-              </Link>
+          </div>
+
+          {/* Password */}
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-2">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter Your Password"
+                className="input input-bordered w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 z-50"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
           </div>
 
+          <div className="mb-6 space-y-2">
+            <p className="text-sm font-medium text-gray-700 mb-3">
+              Password must contain:
+            </p>
+
+            <div className="flex items-center gap-2">
+              {hasUppercase ? (
+                <Check size={18} className="text-green-500" />
+              ) : (
+                <X size={18} className="text-gray-400" />
+              )}
+              <span
+                className={hasUppercase ? "text-green-600" : "text-gray-600"}
+              >
+                At least 1 uppercase letter
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {hasLowercase ? (
+                <Check size={18} className="text-green-500" />
+              ) : (
+                <X size={18} className="text-gray-400" />
+              )}
+              <span
+                className={hasLowercase ? "text-green-600" : "text-gray-600"}
+              >
+                At least 1 lowercase letter
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {hasMinLength ? (
+                <Check size={18} className="text-green-500" />
+              ) : (
+                <X size={18} className="text-gray-400" />
+              )}
+              <span
+                className={hasMinLength ? "text-green-600" : "text-gray-600"}
+              >
+                Minimum 6 characters
+              </span>
+            </div>
+          </div>
+
+          <div className=" text-gray-500 text-sm text-left">
+            Already have an account?{" "}
+            <Link to={"/login"} className=" text-blue-500">
+              Log In{" "}
+            </Link>
+          </div>
           {/* Submit Button */}
           <button
+            disabled={!isValid}
             type="submit"
             className="btn-classic border-none w-full mt-4 bg-rose-500 hover:bg-rose-600 text-white"
           >
