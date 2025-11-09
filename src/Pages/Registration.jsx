@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 
 const RegisterForm = () => {
-  const { createUser, googleLogin, loading, token } = useAuth();
+  const { createUser, googleLogin, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -106,8 +106,6 @@ const RegisterForm = () => {
       console.log(error);
     }
   };
-
-  console.log(token);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden md:py-10">

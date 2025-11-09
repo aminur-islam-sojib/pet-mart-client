@@ -29,8 +29,7 @@ const LoginForm = () => {
 
     // TODO: send to backend API
     try {
-      const res = await login(formData.email, formData.password);
-      console.log(res);
+      await login(formData.email, formData.password);
       toast.success("Log In Successful!", {
         position: "top-center",
         autoClose: 5000,
