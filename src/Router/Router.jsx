@@ -3,6 +3,7 @@ import Layout from "../Layout/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import RegisterForm from "../Pages/Registration";
 import LoginForm from "../Pages/Login";
+import AddListing from "../Pages/AddListing";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginForm />,
+      },
+      {
+        path: "/add-listing",
+        element: <AddListing />,
       },
     ],
   },
