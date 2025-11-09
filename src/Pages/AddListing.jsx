@@ -1,13 +1,15 @@
 import { useState } from "react";
-import useAxios from "../Hooks/useAxios";
+
 import toast, { Toaster } from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
 import logo from "../assets/logo.png";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const AddListing = () => {
   const [loading, setLoading] = useState(false);
-  const axiosInstance = useAxios();
+
   const { user } = useAuth();
+  const instanceSecure = useAxiosSecure();
 
   // Check if user is authenticated
   if (!user) {
@@ -61,7 +63,7 @@ const AddListing = () => {
 
     try {
       console.log("Sending listing data:", newListing);
-      const res = await axiosInstance.post("/listings", newListing);
+      const res = await instanceSecure.post("/listings", newListing);
       console.log("Server response:", res.data);
 
       if (res.data.insertedId) {
