@@ -11,6 +11,7 @@ const PetsAndSupply = () => {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +30,24 @@ const PetsAndSupply = () => {
   }, [searchQuery, instance]);
 
   if (loading) console.log("loading..");
+
+  console.log(selectedCategory);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await instance.get(
+          `/category-filtered-product/${selectedCategory}`
+        );
+        console.log(res.data);
+        setListings(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [instance, selectedCategory]);
 
   return (
     <>
@@ -61,15 +80,17 @@ const PetsAndSupply = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="w-full sm:w-auto">
-              <select className="w-full sm:w-48 px-5 py-3 border-2 border-rose-200 rounded-full focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition outline-none bg-white font-medium text-gray-700 cursor-pointer">
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full sm:w-48 px-5 py-3 border-2 border-rose-200 rounded-full focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition outline-none bg-white font-medium text-gray-700 cursor-pointer"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Cards Grid */}
