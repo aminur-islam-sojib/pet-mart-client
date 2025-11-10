@@ -179,7 +179,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
                 <input
                   type="number"
                   name="quantity"
-                  defaultValue={quantity}
+                  value={quantity}
                   onChange={handleChange}
                   min="1"
                   required

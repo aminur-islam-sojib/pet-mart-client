@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import OrderForm from "../components/OrderModal";
 import Swal from "sweetalert2";
+import OptimizedImage from "../components/OptimizedImage";
 
 export default function ProductDetailsPage() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -87,7 +88,7 @@ export default function ProductDetailsPage() {
           {/* Left Column - Image */}
           <div className="space-y-4">
             <div className="relative group">
-              <img
+              <OptimizedImage
                 src={product.image}
                 alt={product.name}
                 className="w-full h-[500px] object-cover rounded-2xl shadow-2xl"
@@ -139,32 +140,31 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* Quantity */}
-            {product.category == "Pets" ? (
-              ""
-            ) : (
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Quantity
-                </h3>
-                <div className="flex items-center space-x-4">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
-                  >
-                    -
-                  </button>
-                  <span className="text-xl font-semibold w-12 text-center">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
-                  >
-                    +
-                  </button>
-                </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Quantity
+              </h3>
+              <div className="flex items-center space-x-4">
+                <button
+                  disabled={product.category == "Pets"}
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
+                >
+                  -
+                </button>
+                <span className="text-xl font-semibold w-12 text-center">
+                  {quantity}
+                </span>
+                <button
+                  disabled={product.category == "Pets"}
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
+                >
+                  +
+                </button>
               </div>
-            )}
+            </div>
 
             {/* Action Buttons */}
             <div className="flex space-x-4 pt-4">
