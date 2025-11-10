@@ -3,6 +3,7 @@ import useAxios from "../Hooks/useAxios";
 import { useState } from "react";
 import ListingCard from "../components/Card";
 import { Search } from "lucide-react";
+import Loading from "../components/Loading";
 
 const categories = ["All", "Pets", "Pet Food", "Accessories", "Care Products"];
 
@@ -44,6 +45,8 @@ const PetsAndSupply = () => {
         setListings(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -94,11 +97,15 @@ const PetsAndSupply = () => {
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {listings.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} />
-            ))}
-          </div>
+          {loading && loading ? (
+            <Loading />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {listings.map((listing) => (
+                <ListingCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
