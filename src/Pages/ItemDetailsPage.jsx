@@ -15,12 +15,15 @@ import {
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { Link, useParams } from "react-router";
 import { useEffect } from "react";
+import { useRef } from "react";
+import OrderForm from "../components/OrderModal";
+import Swal from "sweetalert2";
 
 export default function ProductDetailsPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState([]);
-
+  const dialogRef = useRef();
   const instanceSecure = useAxiosSecure();
   const { id } = useParams();
 
@@ -36,6 +39,32 @@ export default function ProductDetailsPage() {
     };
     fetchData();
   }, [instanceSecure, id]);
+
+  const handleModalOpen = () => {
+    dialogRef.current.showModal();
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.name,
+          text: `Check out this awesome pet/product: ${product.name}!`,
+          url: window.location.href, // current page URL
+        });
+        console.log("Shared successfully!");
+      } catch (err) {
+        console.error("Share failed:", err);
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-rose-50 via-white to-pink-50">
@@ -110,35 +139,45 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* Quantity */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Quantity
-              </h3>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
-                >
-                  -
-                </button>
-                <span className="text-xl font-semibold w-12 text-center">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
-                >
-                  +
-                </button>
+            {product.category == "Pets" ? (
+              ""
+            ) : (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Quantity
+                </h3>
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
+                  >
+                    -
+                  </button>
+                  <span className="text-xl font-semibold w-12 text-center">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-10 h-10 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-rose-500 hover:text-rose-500 transition-colors font-bold"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex space-x-4 pt-4">
-              <button className="flex-1 bg-linear-to-r from-rose-500 to-pink-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-rose-600 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Add to Cart
+              <button
+                onClick={handleModalOpen}
+                className="flex-1 bg-linear-to-r from-rose-500 to-pink-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-rose-600 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                {product.category == "Pets" ? "Adopt Now" : "Add to Cart"}
               </button>
-              <button className="w-14 h-14 border-2 border-rose-500 text-rose-500 rounded-xl flex items-center justify-center hover:bg-rose-50 transition-colors">
+              <button
+                onClick={handleShare}
+                className="w-14 h-14 border-2 border-rose-500 text-rose-500 rounded-xl flex items-center justify-center hover:bg-rose-50 transition-colors"
+              >
                 <Share2 className="w-6 h-6" />
               </button>
             </div>
@@ -190,6 +229,20 @@ export default function ProductDetailsPage() {
                 </span>
               </div>
             </div>
+
+            {/* Modal  */}
+            <dialog
+              className="modal modal-bottom sm:modal-middle"
+              ref={dialogRef}
+            >
+              <div className="modal-box ">
+                <OrderForm
+                  dialogRef={dialogRef}
+                  product={product}
+                  quantity={quantity}
+                />
+              </div>
+            </dialog>
           </div>
         </div>
       </main>
