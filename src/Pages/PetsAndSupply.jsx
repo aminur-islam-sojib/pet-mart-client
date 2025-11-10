@@ -4,13 +4,12 @@ import { useState } from "react";
 import ListingCard from "../components/Card";
 import { Search } from "lucide-react";
 import Loading from "../components/Loading";
-import { useNavigate } from "react-router";
+import EmptyReload from "../components/EmptyReload";
 
 const categories = ["All", "Pets", "Pet Food", "Accessories", "Care Products"];
 
 const PetsAndSupply = () => {
   const instance = useAxios();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -105,20 +104,7 @@ const PetsAndSupply = () => {
                   ))}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center h-[60vh] text-gray-500">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/4076/4076502.png"
-                    alt="No Products"
-                    className="w-32 mb-4 opacity-70"
-                  />
-                  <p className="text-lg font-medium">No Products Available</p>
-                  <button
-                    onClick={() => navigate(0)}
-                    className="mt-4 px-5 py-2 cursor-pointer rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
-                  >
-                    Browse Again
-                  </button>
-                </div>
+                <EmptyReload />
               )}
             </div>
           )}
