@@ -5,6 +5,8 @@ import RegisterForm from "../Pages/Registration";
 import LoginForm from "../Pages/Login";
 import AddListing from "../Pages/AddListing";
 import PetsAndSupply from "../Pages/PetsAndSupply";
+import ItemDetailsPage from "../Pages/ItemDetailsPage";
+import PrivateRoute from "../Layout/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "/add-listing",
         element: <AddListing />,
+      },
+      {
+        path: "/listing/:id",
+        element: (
+          <PrivateRoute>
+            <ItemDetailsPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/pets-supplies",
