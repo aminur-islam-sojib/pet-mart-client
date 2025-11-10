@@ -50,7 +50,7 @@ export default function ProductDetailsPage() {
         await navigator.share({
           title: product.name,
           text: `Check out this awesome pet/product: ${product.name}!`,
-          url: window.location.href, // current page URL
+          url: window.location.href,
         });
         console.log("Shared successfully!");
       } catch (err) {

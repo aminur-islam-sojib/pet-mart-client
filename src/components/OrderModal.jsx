@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Check } from "lucide-react";
 import useAuth from "../Hooks/useAuth";
 import { useEffect } from "react";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 export default function OrderForm({ dialogRef, product, quantity }) {
   const { user } = useAuth();
+
+  const instanceSecure = useAxiosSecure();
 
   const [formData, setFormData] = useState({
     buyerName: `${user?.displayName}`,
@@ -48,13 +52,8 @@ export default function OrderForm({ dialogRef, product, quantity }) {
 
     try {
       // MongoDB API endpoint - replace with your actual endpoint
-      const response = await fetch("YOUR_MONGODB_API_ENDPOINT", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await instanceSecure.post("/orders", formData);
+      console.log(response.data);
 
       if (response.ok) {
         setShowToast(true);
@@ -67,11 +66,15 @@ export default function OrderForm({ dialogRef, product, quantity }) {
           phone: "",
           additionalNotes: "",
         }));
-        dialogRef.current.close();
       }
+      dialogRef.current.close();
+      Swal.fire({
+        title: "Product Added Successfully!",
+        icon: "success",
+        draggable: true,
+      });
     } catch (error) {
       console.error("Error saving order:", error);
-      alert("Failed to save order. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -90,7 +93,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
           Order Form
         </h1>
 
-        <div onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Buyer Information Section */}
           <div className="bg-gray-50 p-4 rounded-lg">
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
@@ -277,7 +280,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
               {loading ? "Processing..." : "Place Order"}
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       {/* Success Toast */}
