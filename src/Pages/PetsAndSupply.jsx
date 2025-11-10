@@ -21,7 +21,6 @@ const PetsAndSupply = () => {
       setLoading(true);
       try {
         const res = await instance.get(`/search?search=${searchQuery}`);
-        console.log(res.data);
         setListings(res.data);
       } catch (error) {
         console.log(error);
@@ -32,10 +31,6 @@ const PetsAndSupply = () => {
     fetchData();
   }, [searchQuery, instance]);
 
-  if (loading) console.log("loading..");
-
-  console.log(selectedCategory);
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -43,7 +38,7 @@ const PetsAndSupply = () => {
         const res = await instance.get(
           `/category-filtered-product/${selectedCategory}`
         );
-        console.log(res.data);
+
         setListings(res.data);
       } catch (error) {
         console.log(error);

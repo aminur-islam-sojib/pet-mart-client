@@ -62,9 +62,7 @@ const AddListing = () => {
     };
 
     try {
-      console.log("Sending listing data:", newListing);
       const res = await instanceSecure.post("/listings", newListing);
-      console.log("Server response:", res.data);
 
       if (res.data.insertedId) {
         toast.success("Listing added successfully!");

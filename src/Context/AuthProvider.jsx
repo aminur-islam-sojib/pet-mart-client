@@ -47,8 +47,6 @@ const AuthProvider = ({ children }) => {
 
           setToken(firebaseToken);
           localStorage.setItem("access-token", firebaseToken);
-
-          console.log("Firebase token obtained and stored");
         } catch (error) {
           console.error("Failed to get Firebase token:", error);
 

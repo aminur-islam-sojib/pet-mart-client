@@ -32,7 +32,7 @@ const Navbar = () => {
         if (result.isConfirmed) {
           logOut()
             .then(() => {
-              console.log("User logged out");
+              Swal.fire("Log Out Successful!");
             })
             .catch((err) => console.error(err));
           swalWithBootstrapButtons.fire({

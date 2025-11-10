@@ -33,8 +33,6 @@ export default function OrderForm({ dialogRef, product, quantity }) {
     return;
   }, [product, quantity]);
 
-  console.log(formData);
-
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +51,6 @@ export default function OrderForm({ dialogRef, product, quantity }) {
     try {
       // MongoDB API endpoint - replace with your actual endpoint
       const response = await instanceSecure.post("/orders", formData);
-      console.log(response.data);
 
       if (response.ok) {
         setShowToast(true);
@@ -273,7 +270,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
               Cancel
             </button>
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={loading}
               className="btn btn-success flex-1 text-white"
             >

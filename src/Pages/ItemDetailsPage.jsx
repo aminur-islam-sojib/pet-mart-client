@@ -32,7 +32,7 @@ export default function ProductDetailsPage() {
     const fetchData = async () => {
       try {
         const res = await instanceSecure.get(`/listing/${id}`);
-        console.log(res.data);
+
         setProduct(res.data);
       } catch (error) {
         console.log(error);
@@ -53,7 +53,6 @@ export default function ProductDetailsPage() {
           text: `Check out this awesome pet/product: ${product.name}!`,
           url: window.location.href,
         });
-        console.log("Shared successfully!");
       } catch (err) {
         console.error("Share failed:", err);
       }
