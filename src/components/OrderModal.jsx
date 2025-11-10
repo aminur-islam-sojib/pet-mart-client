@@ -13,7 +13,6 @@ export default function OrderForm({ dialogRef, product, quantity }) {
   const [formData, setFormData] = useState({
     buyerName: `${user?.displayName}`,
     email: `${user?.email}`,
-
     address: "",
     phone: "",
     date: new Date().toISOString().split("T")[0],
@@ -87,7 +86,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
     <>
       <div className="  ">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Order Form
+          {product.category == "Pets" ? "Adoption Form" : "  Order Form"}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
