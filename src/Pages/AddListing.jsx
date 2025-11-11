@@ -1,9 +1,9 @@
 import { useState } from "react";
-
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 import useAuth from "../Hooks/useAuth";
 import logo from "../assets/logo.png";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddListing = () => {
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,11 @@ const AddListing = () => {
       const res = await instanceSecure.post("/listings", newListing);
 
       if (res.data.insertedId) {
-        toast.success("Listing added successfully!");
+        Swal.fire({
+          title: "Product Added Successfully!",
+          icon: "success",
+          draggable: true,
+        });
         form.reset();
       } else {
         toast.error("Server responded but no ID was returned");
@@ -300,26 +304,6 @@ const AddListing = () => {
           </p>
         </div>
       </div>
-
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: "#fff",
-            color: "#363636",
-            padding: "16px",
-            borderRadius: "12px",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.1)",
-          },
-          success: {
-            iconTheme: {
-              primary: "#f97316",
-              secondary: "#fff",
-            },
-          },
-        }}
-      />
     </div>
   );
 };

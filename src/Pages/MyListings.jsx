@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import OptimizedImage from "../components/OptimizedImage";
 import EmptyField from "../components/EpmtyTable";
 import Swal from "sweetalert2";
+import EditDataModal from "../components/EditDataModal";
 
 const MyListings = () => {
   const { user } = useAuth();
+  const dialogRef = useRef();
   const instanceSecure = useAxiosSecure();
   const [listings, setListings] = useState([]);
+  const [listing, setListing] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -51,6 +54,11 @@ const MyListings = () => {
     });
   };
 
+  const handleEdit = (listing) => {
+    setListing(listing);
+    dialogRef.current.showModal();
+  };
+
   return (
     <>
       {" "}
@@ -63,6 +71,7 @@ const MyListings = () => {
                 <th>No.</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Category</th>
                 <th>Location</th>
                 <th>Date</th>
                 <th>Actions</th>
@@ -90,11 +99,15 @@ const MyListings = () => {
                     </div>
                   </td>
                   <td>${listing?.price}</td>
+                  <td>{listing?.category}</td>
                   <td>{listing?.location}</td>
                   <td>{new Date(listing.date).toLocaleDateString("en-GB")}</td>
                   <td>
                     <div className="flex gap-1.5">
-                      <button className="btn btn-info text-white flex-1">
+                      <button
+                        onClick={() => handleEdit(listing)}
+                        className="btn btn-info text-white flex-1"
+                      >
                         Edit
                       </button>
                       <button
@@ -113,6 +126,12 @@ const MyListings = () => {
       ) : (
         <EmptyField />
       )}
+      {/* Modal  */}
+      <dialog className="modal modal-bottom sm:modal-middle" ref={dialogRef}>
+        <div className="modal-box ">
+          <EditDataModal dialogRef={dialogRef} listing={listing} />
+        </div>
+      </dialog>
     </>
   );
 };
