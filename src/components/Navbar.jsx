@@ -11,46 +11,24 @@ const Navbar = () => {
   const { logOut, user } = useAuth();
 
   const handleLogout = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
+    Swal.fire({
+      title: "Are you sure?",
+      text: "  You are wanna Log Out this account?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        logOut();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          logOut()
-            .then(() => {
-              Swal.fire("Log Out Successful!");
-            })
-            .catch((err) => console.error(err));
-          swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success",
-          });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Your imaginary file is safe :)",
-            icon: "error",
-          });
-        }
-      });
   };
 
   const links = (
@@ -100,7 +78,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
+        <div className="hidden md:flex items-center gap-4 text-gray-700 font-medium">
           {links}
         </div>
 
@@ -108,16 +86,28 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <>
-              <div className="flex items-center gap-2">
-                <img
-                  src={user.photoURL || "/default-avatar.png"}
-                  alt="User Avatar"
-                  className="w-8 h-8 rounded-full border"
-                  title={user.displayName || "Profile"}
-                />
-                <button onClick={handleLogout} className=" btn-classic">
-                  Logout
-                </button>
+              <button onClick={handleLogout} className=" btn-classic">
+                Logout
+              </button>
+              <div className="dropdown dropdown-end  rounded-full">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    <img alt={user?.displayName} src={user?.photoURL} />
+                  </div>
+                </div>
+                <ul
+                  tabIndex="-1"
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <p>{user?.displayName}</p>
+                    <p>{user?.email}</p>
+                  </li>
+                </ul>
               </div>
             </>
           ) : (
