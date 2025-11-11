@@ -40,17 +40,14 @@ const EditDataModal = ({ dialogRef, listing, fetchData }) => {
     console.log(formData);
 
     try {
-      const res = await instanceSecure.patch(
-        `/updateItem/${listing._id}`,
-        formData
-      );
+      await instanceSecure.patch(`/updateItem/${listing._id}`, formData);
       fetchData();
       Swal.fire({
         title: "Updated!",
         text: "Your file has been Updated.",
         icon: "success",
       });
-      console.log(res.data);
+
       dialogRef.current.close();
     } catch (error) {
       console.log(error);

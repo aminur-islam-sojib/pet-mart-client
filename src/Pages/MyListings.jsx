@@ -66,7 +66,7 @@ const MyListings = () => {
         <div className="overflow-x-auto">
           <table className="table w-full">
             {/* Table Head */}
-            <thead>
+            <thead className=" bg-rose-400 text-white">
               <tr>
                 <th>No.</th>
                 <th>Name</th>

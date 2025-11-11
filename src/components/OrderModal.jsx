@@ -27,6 +27,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
         productName: `${product?.name}`,
         quantity: `${quantity}`,
         price: `${product?.price}`,
+        sellerEmail: `${product?.email}`,
       }));
     }
     return;
@@ -65,7 +66,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
       }
       dialogRef.current.close();
       Swal.fire({
-        title: "Product Added Successfully!",
+        title: "Product Ordered Successfully!",
         icon: "success",
         draggable: true,
       });

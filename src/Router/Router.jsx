@@ -8,6 +8,7 @@ import PetsAndSupply from "../Pages/PetsAndSupply";
 import ItemDetailsPage from "../Pages/ItemDetailsPage";
 import PrivateRoute from "../Layout/PrivateRoute";
 import MyListings from "../Pages/MyListings";
+import MyOrders from "../Pages/MyOrders";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyListings />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-orders",
+        element: (
+          <PrivateRoute>
+            <MyOrders />
           </PrivateRoute>
         ),
       },
