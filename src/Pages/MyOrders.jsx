@@ -3,11 +3,13 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import EmptyField from "../components/EpmtyTable";
 import OptimizedImage from "../components/OptimizedImage";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const MyOrders = () => {
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
-  const [listings, setListings] = useState();
+  const [listings, setListings] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,13 +23,67 @@ const MyOrders = () => {
     fetchData();
   }, [instanceSecure, user]);
 
+  const generatePDF = () => {
+    const doc = new jsPDF("l", "pt", "a4");
+    doc.setFontSize(16);
+    doc.text("My Orders Report", 40, 40);
+
+    // here code changes: define table columns and rows
+    const columns = [
+      "No.",
+      "Product Name",
+      "Buyer Name",
+      "Quantity",
+      "Price",
+      "Address",
+      "Date",
+      "Status",
+    ];
+
+    const rows = listings.map((listing, index) => [
+      index + 1,
+      listing.productName,
+      listing.buyerName,
+      listing.quantity,
+      `$${listing.price * listing.quantity}`,
+      listing.address,
+      new Date(listing.date).toLocaleDateString("en-GB"),
+      listing.status,
+    ]);
+
+    autoTable(doc, {
+      startY: 60,
+      head: [columns],
+      body: rows,
+      theme: "grid",
+      headStyles: { fillColor: [244, 63, 94] },
+      styles: { fontSize: 10 },
+    });
+
+    // Save the PDF file
+    doc.save("MyOrders_Report.pdf");
+  };
+
   return (
-    <div>
+    <div className="p-5">
+      {/* here code changes: added download button */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-semibold">My Orders</h2>
+        {listings?.length > 0 && (
+          <button
+            onClick={generatePDF}
+            className="bg-rose-400 hover:bg-rose-500 text-white px-4 py-2 rounded-lg"
+          >
+            Download PDF
+          </button>
+        )}
+      </div>
+
       {listings && listings.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="table w-full">
             {/* Table Head */}
-            <thead className=" bg-rose-400 text-white">
+            <thead className="bg-rose-400 text-white">
               <tr>
                 <th>No.</th>
                 <th>Product Name</th>
@@ -35,13 +91,12 @@ const MyOrders = () => {
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Address</th>
-
                 <th>Date</th>
                 <th>Status</th>
               </tr>
             </thead>
 
-            {/* ✅ Single tbody */}
+            {/* Table Body */}
             <tbody>
               {listings.map((listing, index) => (
                 <tr key={listing._id}>
@@ -63,7 +118,7 @@ const MyOrders = () => {
                   </td>
                   <td>{listing?.buyerName}</td>
                   <td>{listing?.quantity}</td>
-                  <td className=" font-medium">
+                  <td className="font-medium">
                     ${listing?.price * listing?.quantity}
                   </td>
                   <td>{listing?.address}</td>
