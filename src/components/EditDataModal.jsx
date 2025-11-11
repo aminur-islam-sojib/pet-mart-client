@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
-const EditDataModal = ({ dialogRef, listing }) => {
+const EditDataModal = ({ dialogRef, listing, fetchData }) => {
+  const instanceSecure = useAxiosSecure();
   const [formData, setFormData] = useState({
-    petName: "",
+    name: "",
     description: "",
     price: "",
     location: "",
@@ -13,7 +16,7 @@ const EditDataModal = ({ dialogRef, listing }) => {
   useEffect(() => {
     if (listing) {
       setFormData({
-        petName: listing.name || "",
+        name: listing.name || "",
         description: listing.description || "",
         price: listing.price || "",
         location: listing.location || "",
@@ -32,9 +35,26 @@ const EditDataModal = ({ dialogRef, listing }) => {
   };
 
   // Handle submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+
+    try {
+      const res = await instanceSecure.patch(
+        `/updateItem/${listing._id}`,
+        formData
+      );
+      fetchData();
+      Swal.fire({
+        title: "Updated!",
+        text: "Your file has been Updated.",
+        icon: "success",
+      });
+      console.log(res.data);
+      dialogRef.current.close();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancelModal = () => {
@@ -51,16 +71,16 @@ const EditDataModal = ({ dialogRef, listing }) => {
         {/* Pet Name */}
         <div>
           <label
-            htmlFor="petName"
+            htmlFor="name"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
             Pet Name
           </label>
           <input
             type="text"
-            id="petName"
-            name="petName"
-            value={formData.petName}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition"
             placeholder="Enter pet name"

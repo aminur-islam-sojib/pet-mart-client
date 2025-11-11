@@ -129,7 +129,11 @@ const MyListings = () => {
       {/* Modal  */}
       <dialog className="modal modal-bottom sm:modal-middle" ref={dialogRef}>
         <div className="modal-box ">
-          <EditDataModal dialogRef={dialogRef} listing={listing} />
+          <EditDataModal
+            dialogRef={dialogRef}
+            listing={listing}
+            fetchData={fetchData}
+          />
         </div>
       </dialog>
     </>
