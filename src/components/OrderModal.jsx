@@ -12,7 +12,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
 
   const [formData, setFormData] = useState({
     buyerName: `${user?.displayName}`,
-    email: `${user?.email}`,
+    buyerEmail: `${user?.email}`,
     address: "",
     phone: "",
     date: new Date().toISOString().split("T")[0],
@@ -28,6 +28,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
         quantity: `${quantity}`,
         price: `${product?.price}`,
         sellerEmail: `${product?.email}`,
+        status: "pending",
       }));
     }
     return;
@@ -116,7 +117,7 @@ export default function OrderForm({ dialogRef, product, quantity }) {
                 </label>
                 <input
                   type="email"
-                  value={formData.email}
+                  value={formData.buyerEmail}
                   readOnly
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
                 />
