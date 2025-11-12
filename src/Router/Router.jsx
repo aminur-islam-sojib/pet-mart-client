@@ -12,6 +12,7 @@ import MyOrders from "../Pages/MyOrders";
 import NotFoundPage from "../components/NotFoundPage";
 import PetsCategoryPage from "../Pages/PetsCategoryPage";
 import PetFoodCategoryPage from "../Pages/PetFoodCategory";
+import AccessoriesPage from "../Pages/AccessoriesPage";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: "/category-filtered-product/pet-food",
         element: <PetFoodCategoryPage />,
+      },
+      {
+        path: "/category-filtered-product/accessories",
+        element: <AccessoriesPage />,
       },
     ],
   },
