@@ -10,6 +10,7 @@ import PrivateRoute from "../Layout/PrivateRoute";
 import MyListings from "../Pages/MyListings";
 import MyOrders from "../Pages/MyOrders";
 import NotFoundPage from "../components/NotFoundPage";
+import PetsCategoryPage from "../components/petsCategoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             <MyOrders />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/category-filtered-product/pets",
+        element: <PetsCategoryPage />,
       },
     ],
   },

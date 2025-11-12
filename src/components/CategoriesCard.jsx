@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-import { ShoppingBag, Heart, Sparkles, Stethoscope } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const CategoryCard = ({
+  // eslint-disable-next-line no-unused-vars
   icon: Icon,
   title,
   slug,
@@ -11,10 +10,12 @@ const CategoryCard = ({
   iconBg,
   productCount,
 }) => {
+  const navigate = useNavigate();
   const handleClick = () => {
     // You'll add navigation logic here
-    console.log(`Navigate to: /products?category=${slug}`);
+    console.log(`/category-filtered-product/${slug}`);
     // Example: navigate(`/products?category=${slug}`);
+    navigate(`/category-filtered-product/${slug}`);
   };
 
   return (
@@ -32,7 +33,7 @@ const CategoryCard = ({
       <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-rose-200 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-700"></div>
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col h-full">
         {/* Icon Container */}
         <div
           className={`w-20 h-20 ${iconBg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
@@ -46,10 +47,12 @@ const CategoryCard = ({
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 mb-4 leading-relaxed">{description}</p>
+        <p className="text-gray-600 mb-6 leading-relaxed  grow">
+          {description}
+        </p>
 
         {/* Product Count & Arrow */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto">
           <span className="text-sm font-semibold text-rose-500 bg-rose-50 px-4 py-2 rounded-full">
             {productCount}+ Products
           </span>
@@ -78,5 +81,4 @@ const CategoryCard = ({
     </div>
   );
 };
-
 export default CategoryCard;

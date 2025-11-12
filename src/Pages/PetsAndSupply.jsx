@@ -6,14 +6,12 @@ import { Search } from "lucide-react";
 import Loading from "../components/Loading";
 import EmptyReload from "../components/EmptyReload";
 
-const categories = ["All", "Pets", "Pet Food", "Accessories", "Care Products"];
-
 const PetsAndSupply = () => {
   const instance = useAxios();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,15 +78,16 @@ const PetsAndSupply = () => {
 
             {/* Category Filter */}
             <select
-              value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full sm:w-48 px-5 py-3 border-2 border-rose-200 rounded-full focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition outline-none bg-white font-medium text-gray-700 cursor-pointer"
+              name="category"
+              required
+              className=" rounded-full px-4 py-3 border-2 border-gray-200   focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition outline-none bg-white"
             >
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
+              <option value="all">All</option>
+              <option value="pets">Pets</option>
+              <option value="pet-food">Pet Food</option>
+              <option value="accessories">Accessories</option>
+              <option value="care-products">Care Products</option>
             </select>
           </div>
 
