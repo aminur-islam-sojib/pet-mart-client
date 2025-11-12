@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Package, Truck, RotateCcw } from "lucide-react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -92,13 +94,32 @@ const PetHeroSection = () => {
                   <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
                   {/* optional overlay */}
                   <div className="relative z-10 flex flex-col items-center justify-center h-full text-center gap-3">
-                    <h1 className="text-4xl font-bold text-white dark:text-white">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="text-4xl font-bold text-white dark:text-white"
+                    >
                       {slide.title}
-                    </h1>
-                    <p className="text-lg text-white/90 dark:text-white/80">
+                    </motion.h1>
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="text-lg text-white/90 dark:text-white/80"
+                    >
                       {slide.description}
-                    </p>
-                    <button className="btn-classic">{slide.buttonText}</button>
+                    </motion.p>
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="btn-classic"
+                    >
+                      {slide.buttonText}
+                    </motion.button>
                   </div>
                 </div>
               </div>
@@ -114,8 +135,12 @@ const PetHeroSection = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ translateY: -5 }}
                 className="card bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="card-body items-center text-center p-8">
@@ -129,7 +154,7 @@ const PetHeroSection = () => {
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

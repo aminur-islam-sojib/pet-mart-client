@@ -4,6 +4,8 @@ import useAuth from "../Hooks/useAuth";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Bounce, toast } from "react-toastify";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const LoginForm = () => {
@@ -80,14 +82,24 @@ const LoginForm = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden md:py-10">
       {/* 🧾 Registration Card */}
-      <div className="relative z-10 w-full max-w-md mx-4 sm:mx-auto bg-rose-50  rounded-2xl shadow-xl p-6 sm:p-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 w-full max-w-md mx-4 sm:mx-auto bg-rose-50  rounded-2xl shadow-xl p-6 sm:p-8"
+      >
         <h2 className="text-3xl font-bold text-center text-rose-600 mb-6">
           Log In
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
-          <div className="form-control flex flex-col gap-1 ">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="form-control flex flex-col gap-1 "
+          >
             <label className="label">
               <span className="label-text font-semibold text-gray-500">
                 Email
@@ -102,10 +114,15 @@ const LoginForm = () => {
               className="input input-bordered w-full"
               required
             />
-          </div>
+          </motion.div>
 
           {/* Password */}
-          <div className="form-control relative flex flex-col gap-1 ">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="form-control relative flex flex-col gap-1 "
+          >
             <label className="label">
               <span className="label-text font-semibold text-gray-500">
                 Password
@@ -132,23 +149,33 @@ const LoginForm = () => {
                 Register{" "}
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Submit Button */}
-          <button
+          <motion.button
             type="submit"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             className="btn-classic border-none w-full mt-4 bg-rose-500 hover:bg-rose-600 text-white"
           >
             {loading ? "Login..." : "Log In"}
-          </button>
+          </motion.button>
         </form>
 
         {/* Divider */}
         <div className="divider">OR</div>
 
         {/* Google Login */}
-        <button
+        <motion.button
           onClick={handleGoogleLogin}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           className="btn btn-classic-outline bg-white text-black border border-gray-300 w-full hover:bg-gray-100"
         >
           <svg
@@ -179,8 +206,8 @@ const LoginForm = () => {
             </g>
           </svg>
           <span className="ml-2">Continue with Google</span>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

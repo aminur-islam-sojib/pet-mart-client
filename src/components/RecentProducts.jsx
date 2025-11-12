@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import useAxios from "../Hooks/useAxios";
 import ListingCard from "./Card";
 
@@ -20,17 +22,26 @@ const RecentProducts = () => {
 
   return (
     <section>
-      <div className="text-center my-16">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="text-center my-16"
+      >
         <h2 className="text-5xl font-bold text-gray-900 mb-4">
           Recent <span className="text-rose-600">Products</span>
         </h2>
-      </div>
+      </motion.div>
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-11/12 mx-auto mb-10">
-        {listings.map((listing) => (
-          <div key={listing._id}>
-            {" "}
+        {listings.map((listing, index) => (
+          <motion.div
+            key={listing._id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
+          >
             <ListingCard listing={listing} />
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

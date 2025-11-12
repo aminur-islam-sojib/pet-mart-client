@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import useAuth from "../Hooks/useAuth";
 import useTheme from "../Hooks/useTheme";
 import logo from "../assets/logo.png";
@@ -37,37 +39,84 @@ const Navbar = () => {
     <>
       {user ? (
         <>
-          <NavLink to="/" className="hover:text-rose-500">
-            Home
-          </NavLink>
-          <NavLink to="/pets-supplies" className="hover:text-rose-500">
-            Pets & Supplies
-          </NavLink>
-          <NavLink to="/add-listing" className="hover:text-rose-500">
-            Add Listing
-          </NavLink>
-          <NavLink to="/my-listings" className="hover:text-rose-500">
-            My Listings
-          </NavLink>
-          <NavLink to="/my-orders" className="hover:text-rose-500">
-            My Orders
-          </NavLink>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/" className="hover:text-rose-500">
+              Home
+            </NavLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/pets-supplies" className="hover:text-rose-500">
+              Pets & Supplies
+            </NavLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/add-listing" className="hover:text-rose-500">
+              Add Listing
+            </NavLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/my-listings" className="hover:text-rose-500">
+              My Listings
+            </NavLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/my-orders" className="hover:text-rose-500">
+              My Orders
+            </NavLink>
+          </motion.div>
         </>
       ) : (
         <>
-          <NavLink to="/" className="hover:text-rose-500">
-            Home
-          </NavLink>
-          <NavLink to="/pets-supplies" className="hover:text-rose-500">
-            Pets & Supplies
-          </NavLink>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/" className="hover:text-rose-500">
+              Home
+            </NavLink>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block"
+          >
+            <NavLink to="/pets-supplies" className="hover:text-rose-500">
+              Pets & Supplies
+            </NavLink>
+          </motion.div>
         </>
       )}
     </>
   );
 
   return (
-    <nav className="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50"
+    >
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2">
@@ -86,18 +135,25 @@ const Navbar = () => {
 
         {/* Right Section */}
         <div className="hidden md:flex items-center gap-4">
-          <button
+          <motion.button
             onClick={toggleTheme}
+            whileHover={{ rotate: 20, scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition"
             title={theme === "dark" ? "Switch to light" : "Switch to dark"}
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          </motion.button>
           {user ? (
             <>
-              <button onClick={handleLogout} className=" btn-classic">
+              <motion.button
+                onClick={handleLogout}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className=" btn-classic"
+              >
                 Logout
-              </button>
+              </motion.button>
               <div className="dropdown dropdown-end  rounded-full">
                 <div
                   tabIndex={0}
@@ -121,12 +177,22 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="btn-classic-outline">
-                Login
-              </Link>
-              <Link to="/register" className=" btn-classic">
-                Register
-              </Link>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/login" className="btn-classic-outline">
+                  Login
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/register" className=" btn-classic">
+                  Register
+                </Link>
+              </motion.div>
             </>
           )}
         </div>
@@ -142,7 +208,13 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-slate-900 border-t py-4 px-6 flex flex-col gap-4 text-gray-700 dark:text-gray-200 font-medium">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+          className="md:hidden bg-white dark:bg-slate-900 border-t py-4 px-6 flex flex-col gap-4 text-gray-700 dark:text-gray-200 font-medium"
+        >
           <button
             onClick={toggleTheme}
             className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition w-fit flex items-center gap-2"
@@ -178,9 +250,9 @@ const Navbar = () => {
               </Link>
             </>
           )}
-        </div>
+        </motion.div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 
