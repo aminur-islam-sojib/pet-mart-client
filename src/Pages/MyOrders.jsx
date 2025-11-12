@@ -66,7 +66,7 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 min-h-screen">
       {/* here code changes: added download button */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">My Orders</h2>
