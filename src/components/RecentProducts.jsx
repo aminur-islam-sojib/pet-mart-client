@@ -20,12 +20,12 @@ const RecentProducts = () => {
 
   return (
     <section>
-      <div>
-        <h1 className=" text-3xl font-black text-center my-10 text-rose-400">
-          Recent Added
-        </h1>
+      <div className="text-center my-16">
+        <h2 className="text-5xl font-bold text-gray-900 mb-4">
+          Recent <span className="text-rose-600">Products</span>
+        </h2>
       </div>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-11/12 mx-auto">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-11/12 mx-auto mb-10">
         {listings.map((listing) => (
           <div key={listing._id}>
             {" "}

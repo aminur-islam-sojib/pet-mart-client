@@ -1,6 +1,7 @@
 import { Heart, ShoppingBag, Sparkles, Stethoscope } from "lucide-react";
 import CategoryCard from "./CategoriesCard";
 import useFetchData from "../Hooks/useFetchData";
+import { Link } from "react-router";
 
 const CategoriesSection = () => {
   const pets = useFetchData("pets");
@@ -73,9 +74,12 @@ const CategoriesSection = () => {
           <p className="text-gray-600 mb-6">
             Can't find what you're looking for?
           </p>
-          <button className="bg-linear-to-r from-rose-500 to-rose-600 text-white font-semibold px-8 py-4 rounded-full hover:from-rose-600 hover:to-rose-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <Link
+            to={"/pets-supplies"}
+            className="bg-linear-to-r from-rose-500 to-rose-600 text-white font-semibold px-8 py-4 rounded-full hover:from-rose-600 hover:to-rose-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
             View All Products
-          </button>
+          </Link>
         </div>
       </div>
     </div>
