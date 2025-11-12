@@ -19,6 +19,7 @@ import { useRef } from "react";
 import OrderForm from "../components/OrderModal";
 import Swal from "sweetalert2";
 import OptimizedImage from "../components/OptimizedImage";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 export default function ProductDetailsPage() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -27,7 +28,7 @@ export default function ProductDetailsPage() {
   const dialogRef = useRef();
   const instanceSecure = useAxiosSecure();
   const { id } = useParams();
-
+  useDynamicTitle("Item Details");
   useEffect(() => {
     const fetchData = async () => {
       try {

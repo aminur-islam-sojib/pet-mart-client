@@ -6,6 +6,7 @@ import OptimizedImage from "../components/OptimizedImage";
 import EmptyField from "../components/EpmtyTable";
 import Swal from "sweetalert2";
 import EditDataModal from "../components/EditDataModal";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const MyListings = () => {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ const MyListings = () => {
   const instanceSecure = useAxiosSecure();
   const [listings, setListings] = useState([]);
   const [listing, setListing] = useState([]);
-
+  useDynamicTitle("My Listings");
   const fetchData = async () => {
     try {
       const res = await instanceSecure.get(`/myListings/${user?.email}`);
@@ -60,7 +61,7 @@ const MyListings = () => {
   };
 
   return (
-    <>
+    <section className=" min-h-screen">
       {" "}
       {listings.length > 0 ? (
         <div className="overflow-x-auto">
@@ -136,7 +137,7 @@ const MyListings = () => {
           />
         </div>
       </dialog>
-    </>
+    </section>
   );
 };
 

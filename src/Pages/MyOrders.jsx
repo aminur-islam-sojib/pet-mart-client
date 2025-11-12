@@ -5,12 +5,13 @@ import EmptyField from "../components/EpmtyTable";
 import OptimizedImage from "../components/OptimizedImage";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const MyOrders = () => {
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
   const [listings, setListings] = useState([]);
-
+  useDynamicTitle("My Orders");
   useEffect(() => {
     const fetchData = async () => {
       try {

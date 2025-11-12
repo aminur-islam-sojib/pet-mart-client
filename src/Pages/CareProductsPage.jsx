@@ -1,8 +1,10 @@
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 import useFetchData from "../Hooks/useFetchData";
 import ListingCard from "../components/Card";
 
 const CareProductsPage = () => {
   const careProducts = useFetchData("care-products");
+  useDynamicTitle("Card Products");
   return (
     <>
       <div className="text-center my-10">

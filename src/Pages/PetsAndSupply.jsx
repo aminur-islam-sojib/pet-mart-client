@@ -5,6 +5,7 @@ import ListingCard from "../components/Card";
 import { Search } from "lucide-react";
 import Loading from "../components/Loading";
 import EmptyReload from "../components/EmptyReload";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const PetsAndSupply = () => {
   const instance = useAxios();
@@ -12,6 +13,7 @@ const PetsAndSupply = () => {
   const [listings, setListings] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  useDynamicTitle("Pets And Supply");
 
   useEffect(() => {
     const fetchData = async () => {

@@ -4,6 +4,7 @@ import useAuth from "../Hooks/useAuth";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Bounce, toast } from "react-toastify";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const LoginForm = () => {
   const { login, loading } = useAuth();
@@ -11,7 +12,7 @@ const LoginForm = () => {
   const { googleLogin } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
+  useDynamicTitle("Log In");
   const [formData, setFormData] = useState({
     email: "",
     password: "",

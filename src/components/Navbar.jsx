@@ -109,6 +109,7 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
+              <input type="checkbox" defaultChecked className="toggle" />
             </>
           ) : (
             <>

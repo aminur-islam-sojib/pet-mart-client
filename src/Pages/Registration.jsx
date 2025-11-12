@@ -4,6 +4,7 @@ import useAuth from "../Hooks/useAuth";
 import { Check, Eye, EyeClosed, EyeOff, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const RegisterForm = () => {
   const { createUser, googleLogin, loading } = useAuth();
@@ -15,7 +16,7 @@ const RegisterForm = () => {
     password: "",
     imageUrl: "",
   });
-
+  useDynamicTitle("Registration");
   const instance = useAxios();
   const from = location?.state?.from.pathname || "/";
 

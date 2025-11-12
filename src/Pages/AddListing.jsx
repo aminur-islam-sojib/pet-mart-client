@@ -4,12 +4,15 @@ import useAuth from "../Hooks/useAuth";
 import logo from "../assets/logo.png";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useDynamicTitle from "../Hooks/useDynamicTitle";
 
 const AddListing = () => {
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
+
+  useDynamicTitle("Add Listing");
 
   // Slug generation utility function
   const generateSlug = (text) => {
