@@ -50,7 +50,7 @@ const PetsAndSupply = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-linear-to-br from-rose-50 via-white to-rose-50 p-8">
+      <div className="min-h-screen   p-8">
         <div className="w-11/12 mx-auto">
           {/* Header */}
           <div className="text-center mb-8">

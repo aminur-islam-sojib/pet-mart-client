@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import useAuth from "../Hooks/useAuth";
+import useTheme from "../Hooks/useTheme";
 import logo from "../assets/logo.png";
 import Swal from "sweetalert2";
 
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { logOut, user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     Swal.fire({
@@ -65,7 +67,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2">
@@ -78,7 +80,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-4 text-gray-700 font-medium">
+        <div className="hidden md:flex items-center gap-4 text-gray-700 dark:text-gray-200 font-medium">
           {links}
         </div>
 
@@ -109,7 +111,13 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
-              <input type="checkbox" defaultChecked className="toggle" />
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition"
+                title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
             </>
           ) : (
             <>
@@ -134,7 +142,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t py-4 px-6 flex flex-col gap-4 text-gray-700 font-medium">
+        <div className="md:hidden bg-white dark:bg-slate-900 border-t py-4 px-6 flex flex-col gap-4 text-gray-700 dark:text-gray-200 font-medium">
           {links}
           {user ? (
             <>

@@ -82,16 +82,22 @@ const PetHeroSection = () => {
         >
           {slides.map((slide) => (
             <SwiperSlide key={slide.id}>
-              <div className={`relative h-screen w-full ${slide.bgColor}`}>
+              <div
+                className={`relative h-screen w-full ${slide.bgColor} dark:bg-slate-800`}
+              >
                 <div
                   className="h-screen w-full bg-cover bg-center"
                   style={{ backgroundImage: `url(${slide.image})` }}
                 >
-                  <div className="absolute inset-0 bg-black/20"></div>{" "}
+                  <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
                   {/* optional overlay */}
-                  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white gap-3">
-                    <h1 className="text-4xl font-bold">{slide.title}</h1>
-                    <p className="text-lg">{slide.description}</p>
+                  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center gap-3">
+                    <h1 className="text-4xl font-bold text-white dark:text-white">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg text-white/90 dark:text-white/80">
+                      {slide.description}
+                    </p>
                     <button className="btn-classic">{slide.buttonText}</button>
                   </div>
                 </div>
@@ -104,20 +110,24 @@ const PetHeroSection = () => {
       </div>
 
       {/* Features Section (Cards below slider) */}
-      <div className="bg-white py-8 shadow-sm">
+      <div className="bg-white dark:bg-slate-800 py-8 shadow-sm">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="card bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                className="card bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="card-body items-center text-center p-8">
-                  <div className="mb-4 text-gray-700">{feature.icon}</div>
-                  <h3 className="card-title text-gray-900 font-bold text-sm tracking-wider">
+                  <div className="mb-4 text-gray-700 dark:text-gray-200">
+                    {feature.icon}
+                  </div>
+                  <h3 className="card-title text-gray-900 dark:text-gray-100 font-bold text-sm tracking-wider">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}
