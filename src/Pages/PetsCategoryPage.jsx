@@ -1,5 +1,5 @@
 import useFetchData from "../Hooks/useFetchData";
-import ListingCard from "./Card";
+import ListingCard from "../components/Card";
 
 const PetsCategoryPage = () => {
   const pets = useFetchData("pets");
