@@ -86,6 +86,13 @@ const Navbar = () => {
 
         {/* Right Section */}
         <div className="hidden md:flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition"
+            title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           {user ? (
             <>
               <button onClick={handleLogout} className=" btn-classic">
@@ -111,13 +118,6 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition"
-                title={theme === "dark" ? "Switch to light" : "Switch to dark"}
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
             </>
           ) : (
             <>
@@ -143,6 +143,16 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-slate-900 border-t py-4 px-6 flex flex-col gap-4 text-gray-700 dark:text-gray-200 font-medium">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 transition w-fit flex items-center gap-2"
+            title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <span className="text-sm">
+              {theme === "dark" ? "Light" : "Dark"}
+            </span>
+          </button>
           {links}
           {user ? (
             <>
