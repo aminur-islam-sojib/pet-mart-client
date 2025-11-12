@@ -47,7 +47,7 @@ const RegisterForm = () => {
       if (!isValid)
         return toast.error("Please input a valid password!", {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -62,7 +62,7 @@ const RegisterForm = () => {
         instance.post("/users", userInfo);
         toast.success("Registration Successful!", {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -92,7 +92,7 @@ const RegisterForm = () => {
       instance.post("/users", userInfo);
       toast.success("Registration Successful!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,

@@ -32,7 +32,7 @@ const LoginForm = () => {
       await login(formData.email, formData.password);
       toast.success("Log In Successful!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -61,7 +61,7 @@ const LoginForm = () => {
       instance.post("/users", userInfo);
       toast.success("Log In Successful!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
