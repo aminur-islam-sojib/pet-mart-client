@@ -11,6 +11,16 @@ const AddListing = () => {
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
 
+  // Slug generation utility function
+  const generateSlug = (text) => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  };
+
   // Check if user is authenticated
   if (!user) {
     return (
@@ -49,9 +59,13 @@ const AddListing = () => {
       return;
     }
 
+    // Generate slug from category
+    const categorySlug = generateSlug(form.category.value);
+
     const newListing = {
       name: form.name.value.trim(),
       category: form.category.value,
+      categorySlug: categorySlug,
       price: parseFloat(form.price.value) || 0,
       location: form.location.value.trim(),
       description: form.description.value.trim(),

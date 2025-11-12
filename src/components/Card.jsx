@@ -93,7 +93,7 @@ const ListingCard = ({ listing }) => {
   // Format price
   const formatPrice = (price) => {
     if (price === 0) return "FREE";
-    return `৳${price.toLocaleString()}`;
+    return `$${price.toLocaleString()}`;
   };
 
   return (
