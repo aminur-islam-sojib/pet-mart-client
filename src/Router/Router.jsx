@@ -13,6 +13,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import PetsCategoryPage from "../Pages/PetsCategoryPage";
 import PetFoodCategoryPage from "../Pages/PetFoodCategory";
 import AccessoriesPage from "../Pages/AccessoriesPage";
+import CareProductsPage from "../Pages/CareProductsPage";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path: "/category-filtered-product/accessories",
         element: <AccessoriesPage />,
+      },
+      {
+        path: "/category-filtered-product/care-products",
+        element: <CareProductsPage />,
       },
     ],
   },
