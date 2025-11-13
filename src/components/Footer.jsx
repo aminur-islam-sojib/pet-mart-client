@@ -3,11 +3,11 @@ import {
   Heart,
   Facebook,
   Instagram,
-  Twitter,
   Youtube,
   Mail,
   Phone,
   MapPin,
+  X,
 } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { NavLink } from "react-router";
@@ -133,7 +133,7 @@ export default function Footer() {
                 href="#"
                 className="bg-white hover:bg-rose-500 text-rose-500 hover:text-white p-2.5 rounded-lg transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-md"
               >
-                <Twitter className="w-4 h-4" />
+                <X className="w-4 h-4" />
               </a>
               <a
                 href="#"
