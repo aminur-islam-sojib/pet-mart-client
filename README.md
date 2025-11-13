@@ -1,16 +1,31 @@
-# React + Vite
+# Paw Mart 🐾
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive pet marketplace platform where you can buy and sell pets, pet food, accessories, and care products.
 
-Currently, two official plugins are available:
+## Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 [https://paw-mart-ph.netlify.app/](https://paw-mart-ph.netlify.app/)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **🐶 Pet Marketplace** - Browse and purchase a wide variety of pets including cats, dogs, birds, rabbits, and more with detailed descriptions and images
 
-## Expanding the ESLint configuration
+- **🛒 Multiple Categories** - Explore four main categories: Pets, Pet Food, Accessories, and Care Products to find everything you need for your furry friends
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **📍 Location-Based Listings** - View pet listings from different locations across Bangladesh including Dhaka, Chittagong, Sylhet, Rajshahi, and Khulna
+
+- **💰 Flexible Pricing** - Find pets and products across various price ranges, from affordable options to premium breeds and quality products
+
+- **📧 Direct Communication** - Connect directly with sellers through email to arrange purchases, ask questions, and negotiate deals
+
+## Technologies Used
+
+- React.js
+- MongoDB
+- Express.js
+- Node.js
+- Tailwind CSS
+
+## About
+
+Paw Mart is your one-stop destination for all pet-related needs. Whether you're looking to adopt a new furry companion, stock up on pet food, or find the perfect accessories and care products, we've got you covered!
