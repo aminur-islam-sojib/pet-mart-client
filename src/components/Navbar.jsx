@@ -17,18 +17,18 @@ const Navbar = () => {
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "  You are wanna Log Out this account?",
+      text: "  You wanna Log Out this account?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Log Out!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         logOut();
         Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
+          title: "Log Out!",
+          text: "Your account successfully log out.",
           icon: "success",
         });
       }
