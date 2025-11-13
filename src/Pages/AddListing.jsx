@@ -120,12 +120,14 @@ const AddListing = () => {
             <img src={logo} alt="" className=" h-full w-auto" />
           </figure>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-            Add New Listing
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Share your pet, products, or services with our community
-          </p>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              Add New<span className="text-rose-600"> Listings</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Share your pet, products, or services with our community
+            </p>
+          </div>
         </div>
 
         {/* Form Card */}

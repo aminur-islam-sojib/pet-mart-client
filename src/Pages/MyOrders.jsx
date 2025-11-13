@@ -6,19 +6,24 @@ import OptimizedImage from "../components/OptimizedImage";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import useDynamicTitle from "../Hooks/useDynamicTitle";
+import Loading from "../components/Loading";
 
 const MyOrders = () => {
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
   const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(false);
   useDynamicTitle("My Orders");
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const res = await instanceSecure.get(`/myOrders/${user?.email}`);
         setListings(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -64,6 +69,8 @@ const MyOrders = () => {
     // Save the PDF file
     doc.save("MyOrders_Report.pdf");
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="p-5 min-h-screen">

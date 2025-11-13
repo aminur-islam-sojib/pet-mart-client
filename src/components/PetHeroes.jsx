@@ -191,23 +191,6 @@ const PetHeroes = () => {
             </div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex flex-col md:flex-row items-center gap-4 bg-linear-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 p-8 rounded-2xl shadow-xl">
-            <div className="text-white text-left">
-              <h3 className="text-2xl font-bold mb-2">
-                Want to Join Our Team?
-              </h3>
-              <p className="text-blue-100 dark:text-purple-100">
-                Become a volunteer and help save lives in your community
-              </p>
-            </div>
-            <button className="whitespace-nowrap px-6 py-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-lg">
-              Become a Hero
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );

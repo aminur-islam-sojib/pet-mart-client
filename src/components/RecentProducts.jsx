@@ -3,22 +3,29 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useAxios from "../Hooks/useAxios";
 import ListingCard from "./Card";
+import Loading from "./Loading";
 
 const RecentProducts = () => {
   const instance = useAxios();
   const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const res = await instance.get("/recent-products");
         setListings(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, [instance]);
+
+  if (loading) return <Loading />;
 
   return (
     <section>

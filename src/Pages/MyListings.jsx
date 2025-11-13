@@ -7,6 +7,7 @@ import EmptyField from "../components/EpmtyTable";
 import Swal from "sweetalert2";
 import EditDataModal from "../components/EditDataModal";
 import useDynamicTitle from "../Hooks/useDynamicTitle";
+import Loading from "../components/Loading";
 
 const MyListings = () => {
   const { user } = useAuth();
@@ -14,13 +15,17 @@ const MyListings = () => {
   const instanceSecure = useAxiosSecure();
   const [listings, setListings] = useState([]);
   const [listing, setListing] = useState([]);
+  const [loading, setLoading] = useState(false);
   useDynamicTitle("My Listings");
   const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await instanceSecure.get(`/myListings/${user?.email}`);
       setListings(res.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,6 +64,8 @@ const MyListings = () => {
     setListing(listing);
     dialogRef.current.showModal();
   };
+
+  if (loading) return <Loading />;
 
   return (
     <section className=" min-h-screen">

@@ -53,11 +53,11 @@ const PetsAndSupply = () => {
       <div className="min-h-screen   p-8">
         <div className="w-11/12 mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
-              Featured Listings
-            </h1>
-            <p className="text-gray-600">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              Featured<span className="text-rose-600"> Listings</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Find your perfect companion or pet supplies
             </p>
           </div>
